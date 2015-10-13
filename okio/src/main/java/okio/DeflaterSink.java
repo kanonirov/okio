@@ -90,9 +90,10 @@ public final class DeflaterSink implements Sink {
       // Java 1.7, and is public (although with @hide) on Android since 2.3.
       // The @hide tag means that this code won't compile against the Android
       // 2.3 SDK, but it will run fine there.
-      int deflated = syncFlush
-          ? deflater.deflate(s.data, s.limit, Segment.SIZE - s.limit, Deflater.SYNC_FLUSH)
-          : deflater.deflate(s.data, s.limit, Segment.SIZE - s.limit);
+//      int deflated = syncFlush
+//          ? deflater.deflate(s.data, s.limit, Segment.SIZE - s.limit, Deflater.SYNC_FLUSH)
+//          : deflater.deflate(s.data, s.limit, Segment.SIZE - s.limit);
+      int deflated = deflater.deflate(s.data, s.limit, Segment.SIZE - s.limit);
 
       if (deflated > 0) {
         s.limit += deflated;

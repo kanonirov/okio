@@ -285,7 +285,7 @@ public class ByteStringTest {
         ByteString.decodeHex("fe"),
         ByteString.decodeHex("ff"));
 
-    List<ByteString> sortedByteStrings = new ArrayList<>(originalByteStrings);
+    List<ByteString> sortedByteStrings = new ArrayList<ByteString>(originalByteStrings);
     Collections.shuffle(sortedByteStrings, new Random(0));
     Collections.sort(sortedByteStrings);
 
@@ -321,7 +321,7 @@ public class ByteStringTest {
         ByteString.decodeHex("7f0000ffff"),
         ByteString.decodeHex("ffffff"));
 
-    List<ByteString> sortedByteStrings = new ArrayList<>(originalByteStrings);
+    List<ByteString> sortedByteStrings = new ArrayList<ByteString>(originalByteStrings);
     Collections.shuffle(sortedByteStrings, new Random(0));
     Collections.sort(sortedByteStrings);
 

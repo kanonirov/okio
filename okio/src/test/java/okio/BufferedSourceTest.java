@@ -656,7 +656,8 @@ public class BufferedSourceTest {
       sink.writeUtf8("");
       source.readHexadecimalUnsignedLong();
       fail();
-    } catch (IllegalStateException | EOFException expected) {
+    } catch (IllegalStateException expected) {
+    } catch (EOFException expected) {
     }
   }
 
@@ -732,7 +733,8 @@ public class BufferedSourceTest {
       sink.writeUtf8("");
       source.readDecimalLong();
       fail();
-    } catch (IllegalStateException | EOFException expected) {
+    } catch (IllegalStateException expected) {
+    } catch (EOFException expected) {
     }
   }
 

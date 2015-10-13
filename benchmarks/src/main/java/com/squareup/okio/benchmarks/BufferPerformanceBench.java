@@ -46,8 +46,6 @@ import okio.Okio;
 import okio.Sink;
 import okio.Timeout;
 
-import static java.util.Objects.requireNonNull;
-
 @Fork(1)
 @Warmup(iterations = 10, time = 10)
 @Measurement(iterations = 10, time = 10)
@@ -179,8 +177,11 @@ public class BufferPerformanceBench {
 
   private byte[] storeSourceData(byte[] dest) throws IOException {
     requireNonNull(dest, "dest == null");
-    try (BufferedSource source = Okio.buffer(Okio.source(OriginPath))) {
+    BufferedSource source = Okio.buffer(Okio.source(OriginPath));
+    try {
       source.readFully(dest);
+    } finally {
+      source.close();
     }
     return dest;
   }
@@ -192,12 +193,21 @@ public class BufferPerformanceBench {
       throw new IllegalArgumentException("can not access: " + path);
     }
 
-    try (InputStream in = new FileInputStream(path)) {
+    InputStream in = new FileInputStream(path);
+    try {
       int available = in.read();
       if (available < 0) {
         throw new IllegalArgumentException("can not read: " + path);
       }
+    } finally {
+      in.close();
     }
+  }
+
+  public static <T> T requireNonNull(T obj, String message) {
+    if (obj == null)
+      throw new NullPointerException(message);
+    return obj;
   }
 
   /*
